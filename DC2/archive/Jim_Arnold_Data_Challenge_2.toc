@@ -1,0 +1,54 @@
+\contentsline {chapter}{\numberline {1}Executive summary:}{2}{chapter.1}
+\contentsline {subsection}{\numberline {1.0.1}It appears that while emails are being delivered as expected, many users in North America and Europe are not engaging with the product. Given this anomaly is occuring at the end of July / early August, it may be possible we are seeing a seasonal effect, i.e. summer vacation.}{2}{subsection.1.0.1}
+\contentsline {chapter}{\numberline {2}Recommendations:}{3}{chapter.2}
+\contentsline {subsection}{\numberline {2.0.1}Section \ref {problem}}{3}{subsection.2.0.1}
+\contentsline {subsection}{\numberline {2.0.2}Section \ref {approach}}{3}{subsection.2.0.2}
+\contentsline {subsection}{\numberline {2.0.3}Section \ref {dataprep1}}{3}{subsection.2.0.3}
+\contentsline {subsection}{\numberline {2.0.4}Section \ref {dataprep2}}{3}{subsection.2.0.4}
+\contentsline {subsection}{\numberline {2.0.5}Section \ref {events}}{3}{subsection.2.0.5}
+\contentsline {subsection}{\numberline {2.0.6}Section \ref {profile}}{3}{subsection.2.0.6}
+\contentsline {subsection}{\numberline {2.0.7}Section \ref {summary}}{3}{subsection.2.0.7}
+\contentsline {subsection}{\numberline {2.0.8}Section \ref {appendix}}{3}{subsection.2.0.8}
+\contentsline {subsection}{\numberline {2.0.9}The head of product says ``Can you look into this and get me a summary by this afternoon?''}{4}{subsection.2.0.9}
+\contentsline {subsection}{\numberline {2.0.10}"Sure thing!" I say.}{4}{subsection.2.0.10}
+\contentsline {chapter}{\numberline {3}But where to start?}{5}{chapter.3}
+\contentsline {chapter}{\numberline {4}Hypotheses}{6}{chapter.4}
+\contentsline {subsection}{\numberline {4.0.1}1) Users were prompted to signup, then stopped using it. - an adoption/ compliance issue.}{6}{subsection.4.0.1}
+\contentsline {subsection}{\numberline {4.0.2}2) Users changed how they interact with the platform - which could be specific to a company, language, location, or device.}{6}{subsection.4.0.2}
+\contentsline {subsection}{\numberline {4.0.3}3) Similar to 2, there could be an underlying technical issue, perhaps people can't connect and/ or interact with the product.}{6}{subsection.4.0.3}
+\contentsline {chapter}{\numberline {5}Approach}{7}{chapter.5}
+\contentsline {subsection}{\numberline {5.0.1}To approach this question, I think it's important to explore some details. Specifically:}{7}{subsection.5.0.1}
+\contentsline {section}{\numberline {5.1}WHO stopped using the product? If time remaining, address WHY.}{7}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Section \ref {toc}}{7}{subsection.5.1.1}
+\contentsline {subsubsection}{Rationale: This will hopefully make querying between datasets easier, specifically once I identify my users of interest.}{7}{section*.3}
+\contentsline {subsection}{\numberline {5.1.2}The 'event\_type', and 'occurred\_at' datetime features are going to be critical for answering my question.}{8}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}Import the properly dtyped data to my local db}{8}{subsection.5.1.3}
+\contentsline {section}{\numberline {5.2}With data loaded, on to generating labels.}{9}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Section \ref {toc}}{9}{subsection.5.2.1}
+\contentsline {subsubsection}{In SQL, this should be possible with the DATE\_TRUNC function and a WHERE clause.}{9}{section*.4}
+\contentsline {subsection}{\numberline {5.2.2}It looks like the peak weekly users in July, which then drops off.}{10}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Given that, I can aggregate to 'monthly active users' instead of 'weekly active users'}{10}{section.5.3}
+\contentsline {section}{\numberline {5.4}From the monthly summary I see 263 less users engaged in August compared to July.}{12}{section.5.4}
+\contentsline {section}{\numberline {5.5}To see how I built the following sub-sub-subquery, see the Section \ref {appendix}}{12}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Maybe there were some new users that signed up along the way? That is, they would be engaged only in August, not in July. Something to investigate later, for now 256 is still in the ballpark based on the initial chart.}{13}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Let's see if anything differentiates these groups.}{13}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.5.3}Section \ref {toc}}{13}{subsection.5.5.3}
+\contentsline {subsection}{\numberline {5.5.4}First, confirm that this isn't a technical glitch from the service.}{13}{subsection.5.5.4}
+\contentsline {subsection}{\numberline {5.5.5}sent\_weekly\_digest -\textgreater {} email\_open -\textgreater {} clickthrough}{13}{subsection.5.5.5}
+\contentsline {section}{\numberline {5.6}The take away here is that the 'stopped' group didn't see a drop in email deliveries.}{14}{section.5.6}
+\contentsline {chapter}{\numberline {6}Well, this looks interesting.}{17}{chapter.6}
+\contentsline {subsection}{\numberline {6.0.1}it definitely matches the pattern I see in the initial problem. I think this is it.}{17}{subsection.6.0.1}
+\contentsline {chapter}{\numberline {7}Clickthrough}{19}{chapter.7}
+\contentsline {chapter}{\numberline {8}This answers WHAT is happening, but not the WHO or WHY.}{20}{chapter.8}
+\contentsline {section}{\numberline {8.1}Who are they, where are they, and what are they using to engage?}{20}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Section \ref {toc}}{20}{subsection.8.1.1}
+\contentsline {chapter}{\numberline {9}US, Canada, France, Germany, Mexico stand out, but there's others too.}{25}{chapter.9}
+\contentsline {section}{\numberline {9.1}I don't see a large difference by device between stopped and engaged users.}{28}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}This suggests to me there's not a technical issue with the platforms (website, iphone app, android app, etc).}{28}{subsection.9.1.1}
+\contentsline {subsection}{\numberline {9.1.2}Summary stats indicate that within the companies that saw some loss of engagement, the lowest is 25\%, and the highest is 82\%.}{29}{subsection.9.1.2}
+\contentsline {subsection}{\numberline {9.1.3}My take home from this is the issue is not specific to a single company / group of companies.}{29}{subsection.9.1.3}
+\contentsline {subsection}{\numberline {9.1.4}These users are likely on vacation.}{32}{subsection.9.1.4}
+\contentsline {chapter}{\numberline {10}Recommendations:}{33}{chapter.10}
+\contentsline {subsection}{\numberline {10.0.1}Section \ref {toc}}{33}{subsection.10.0.1}
+\contentsline {chapter}{\numberline {11}last steps is to do the sub-sub-subquery, which is done in the}{35}{chapter.11}
+\contentsline {chapter}{\numberline {12}Section \ref {events} and Section \ref {profile} sections}{36}{chapter.12}

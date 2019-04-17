@@ -1,0 +1,1504 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass{report}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Jim\_Arnold\_Data\_Challenge\_2}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    
+    \maketitle
+    
+    
+    \tableofcontents
+
+
+    
+\chapter{Executive summary:}\label{executive-summary}
+
+Analysis of weekly user engagement suggests there is a cohort of 256
+users, primarily located in North America and Europe, who have stopped
+opening weekly digest emails. Given there remain active users in every
+country, this is unlikely to be caused by regional server connectivity
+issues.
+
+Drop in user engagement does not appear to be isolated to a particular
+kind of device, suggesting it's not likely a software/hardware issue.
+
+It also appears to involve at least 1 user from every company, although
+never 100\% from a given company, suggesting the drop in user engagement
+is not likely due to changes in firewall / spam-filters.
+
+Additionally, there is the weekly digest emails are being delivered as
+expected, suggesting the drop in user engagement is not likely
+product-related.
+
+\subsection{It appears that while emails are being delivered as
+expected, many users in North America and Europe are not engaging with
+the product. Given this anomaly is occuring at the end of July / early
+August, it may be possible we are seeing a seasonal effect, i.e. summer
+vacation.}\label{it-appears-that-while-emails-are-being-delivered-as-expected-many-users-in-north-america-and-europe-are-not-engaging-with-the-product.-given-this-anomaly-is-occuring-at-the-end-of-july-early-august-it-may-be-possible-we-are-seeing-a-seasonal-effect-i.e.-summer-vacation.}
+
+\chapter{Recommendations:}\label{recommendations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  If possible, review prior years' data to confirm/ reject seasonality
+  hypothesis.
+\item
+  Contact product team to give heads up. Monitor weekly after users for
+  rebound in 2-4 weeks.
+\item
+  Consider contingency plans if rebound not observed (methods to
+  incentivize re-engagement).
+\end{enumerate}
+
+ \# Table of Contents
+
+\subsection{\texorpdfstring{Section \ref{problem}}{}}\label{initial-observation-and-issue-to-address}
+
+\subsection{\texorpdfstring{Section \ref{approach}}{}}\label{hypotheses-and-approach}
+
+\subsection{\texorpdfstring{Section \ref{dataprep1}}{}}\label{data-preparation---clean-and-load-data}
+
+\subsection{\texorpdfstring{Section \ref{dataprep2}}{}}\label{data-preparation---assign-labels}
+
+\subsection{\texorpdfstring{Section \ref{events}}{}}\label{user-events---interactions-with-weekly-email-digest}
+
+\subsection{\texorpdfstring{Section \ref{profile}}{}}\label{user-profile---engagement-comparison-by-location-device-and-company}
+
+\subsection{\texorpdfstring{Section \ref{summary}}{}}\label{summary-and-recommendations}
+
+\subsection{\texorpdfstring{Section \ref{appendix}}{}}\label{appendix}
+
+ \#\# The Problem - Investigating a Drop in User Engagement
+
+Tuesday morning, September 2, 2014. The head of the Product team walks
+over to your desk and asks you what you think about the latest activity
+on the user engagement dashboards. Here's what it looks like:
+
+\begin{figure}
+\centering
+\includegraphics{attachment:image.png}
+\caption{image.png}
+\end{figure}
+
+The above chart shows the number of engaged users each week.
+
+Yammer defines engagement as having made some type of server call by
+interacting with the product (shown in the data as events of type
+``engagement'').
+
+Any point in this chart can be interpreted as: \#\#\# ``the number of
+users who logged at least one engagement event during the week starting
+on that date.''
+
+Important to understand... 'enagagement' is defined in the
+\textbf{\emph{events}} table.
+
+\subsection{The head of product says ``Can you look into this and get me
+a summary by this
+afternoon?''}\label{the-head-of-product-says-can-you-look-into-this-and-get-me-a-summary-by-this-afternoon}
+
+\subsection{"Sure thing!" I say.}\label{sure-thing-i-say.}
+
+\chapter{But where to start?}\label{but-where-to-start}
+
+ \# Hypotheses and Approach:
+
+I believe I'm being asked to summarize the data and find a potential
+explanation for the drop in 'active' users right around the end of July.
+From the dashboard chart, it looks like around 200 people stopped
+engaging, but this was after a period of growth.
+
+200 users is pretty big. I think the best approach to summarizing this
+data is trying to figure out what is common among the users who stopped
+being 'active' around the end of July and August.
+
+Given that 'active' is defined by 'engaging' with the product in some
+way during the following week, I can think of a few possible hypotheses
+to test.
+
+\chapter{Hypotheses}\label{hypotheses}
+
+\subsection{1) Users were prompted to signup, then stopped using it. -
+an adoption/ compliance
+issue.}\label{users-were-prompted-to-signup-then-stopped-using-it.---an-adoption-compliance-issue.}
+
+\subsection{2) Users changed how they interact with the platform - which
+could be specific to a company, language, location, or
+device.}\label{users-changed-how-they-interact-with-the-platform---which-could-be-specific-to-a-company-language-location-or-device.}
+
+\subsection{3) Similar to 2, there could be an underlying technical
+issue, perhaps people can't connect and/ or interact with the
+product.}\label{similar-to-2-there-could-be-an-underlying-technical-issue-perhaps-people-cant-connect-and-or-interact-with-the-product.}
+
+If none of these yield interesting results, I'll try thinking of others.
+
+\chapter{Approach}\label{approach}
+
+\subsection{To approach this question, I think it's important to explore
+some details.
+Specifically:}\label{to-approach-this-question-i-think-its-important-to-explore-some-details.-specifically}
+
+\section{WHO stopped using the product? If time remaining, address
+WHY.}\label{who-stopped-using-the-product-if-time-remaining-address-why.}
+
+To answer the question of WHO, I'll need to look at the users who
+specifically stopped engaging with the product between the end of July
+and the end of August.
+
+To assess this, I'll need to utilize user engagement with the platform,
+which is in the events table. First thought - I'll try to group by a
+'last used' date, and label those who engaged in July but not August vs.
+those who engaged in July and August.
+
+Once I have that, I should be able to evaluate features of that group vs
+the currently active users (testing hypotheses 2 and 3).
+
+I can also look at last active date vs. account creation to test
+hypothesis 1.
+
+I'll focus on looking for differences in categorical features, namely
+country, language, device, or company.
+
+\subsection{\texorpdfstring{Section \ref{toc}}{}}\label{back-to-table-of-contents}
+
+ \# Data Preparation - Loading Data and Assigning Labels
+
+Because I have 4 tables of data with common features between them, I'm
+going to take a SQL approach.
+
+\subsubsection{Rationale: This will hopefully make querying between
+datasets easier, specifically once I identify my users of
+interest.}\label{rationale-this-will-hopefully-make-querying-between-datasets-easier-specifically-once-i-identify-my-users-of-interest.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Packages for postgres, sqlalchemy, and pandas. }
+        \PY{k+kn}{from} \PY{n+nn}{sqlalchemy} \PY{k}{import} \PY{n}{create\PYZus{}engine}
+        \PY{k+kn}{from} \PY{n+nn}{sqlalchemy\PYZus{}utils} \PY{k}{import} \PY{n}{database\PYZus{}exists}\PY{p}{,} \PY{n}{create\PYZus{}database}
+        \PY{k+kn}{import} \PY{n+nn}{psycopg2}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{pwd} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} omitted my password in the final version}
+        \PY{n}{dbname} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DC2}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{username} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jim}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{pswd} \PY{o}{=} \PY{n}{pwd}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} \PYZsq{}engine\PYZsq{} is a connects to the local DC2 db I created for this.}
+        \PY{n}{engine} \PY{o}{=} \PY{n}{create\PYZus{}engine}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postgresql://}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{:}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{@localhost/}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{username}\PY{p}{,}\PY{n}{pswd}\PY{p}{,}\PY{n}{dbname}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} create a database (if it doesn\PYZsq{}t exist)}
+        \PY{k}{if} \PY{o+ow}{not} \PY{n}{database\PYZus{}exists}\PY{p}{(}\PY{n}{engine}\PY{o}{.}\PY{n}{url}\PY{p}{)}\PY{p}{:}
+            \PY{n}{create\PYZus{}database}\PY{p}{(}\PY{n}{engine}\PY{o}{.}\PY{n}{url}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{database\PYZus{}exists}\PY{p}{(}\PY{n}{engine}\PY{o}{.}\PY{n}{url}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{engine}\PY{o}{.}\PY{n}{url}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+postgresql://jim:Nint3nd0@localhost/DC2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} I\PYZsq{}m summarizing here, but I noticed several of the datetime columns required \PYZsq{}parse\PYZus{}dates\PYZsq{} for accurate dtyping}
+        \PY{n}{users} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yammer\PYZus{}users.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{parse\PYZus{}dates} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{created\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{activated\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} repeat for all csv\PYZsq{}s provided}
+        \PY{n}{emails} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yammer\PYZus{}emails.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{parse\PYZus{}dates} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{occurred\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} user\PYZus{}id and user\PYZus{}type should be an int to match with other table.}
+        \PY{c+c1}{\PYZsh{} user\PYZus{}type threw a \PYZsq{}safety\PYZsq{} error \PYZhy{} need to follow up for explanation}
+        \PY{n}{events} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yammer\PYZus{}events.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dtype} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{int64}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{parse\PYZus{}dates} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{occurred\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} parse the dates in the rollup table}
+        \PY{n}{rollup} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yammer\PYZus{}dimension\PYZus{}rollup\PYZus{}periods.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{n}{parse\PYZus{}dates} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pst\PYZus{}start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pst\PYZus{}end}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utc\PYZus{}start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utc\PYZus{}end}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{events}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}    user\_id         occurred\_at  event\_type    event\_name location  \textbackslash{}
+        0    10522 2014-05-02 11:02:39  engagement         login    Japan   
+        1    10522 2014-05-02 11:02:53  engagement     home\_page    Japan   
+        2    10522 2014-05-02 11:03:28  engagement  like\_message    Japan   
+        3    10522 2014-05-02 11:04:09  engagement    view\_inbox    Japan   
+        4    10522 2014-05-02 11:03:16  engagement    search\_run    Japan   
+        
+                           device  user\_type  
+        0  dell inspiron notebook        3.0  
+        1  dell inspiron notebook        3.0  
+        2  dell inspiron notebook        3.0  
+        3  dell inspiron notebook        3.0  
+        4  dell inspiron notebook        3.0  
+\end{Verbatim}
+            
+\subsection{The 'event\_type', and 'occurred\_at' datetime features are
+going to be critical for answering my
+question.}\label{the-event_type-and-occurred_at-datetime-features-are-going-to-be-critical-for-answering-my-question.}
+
+I also like that this table has the 'user\_id' feature, which will be
+useful for joining on the previous \emph{emails} and \emph{users}
+tables.
+
+I'm not sure how to use a rollup table. If there's time, I'd should ask
+someone how to implement it.
+
+\subsection{Import the properly dtyped data to my local
+db}\label{import-the-properly-dtyped-data-to-my-local-db}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} insert data into database}
+        \PY{n}{users}\PY{o}{.}\PY{n}{to\PYZus{}sql}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{users}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{engine}\PY{p}{,} \PY{n}{if\PYZus{}exists}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{replace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{emails}\PY{o}{.}\PY{n}{to\PYZus{}sql}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{emails}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{engine}\PY{p}{,} \PY{n}{if\PYZus{}exists}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{replace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{events}\PY{o}{.}\PY{n}{to\PYZus{}sql}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{events}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{engine}\PY{p}{,} \PY{n}{if\PYZus{}exists}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{replace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{rollup}\PY{o}{.}\PY{n}{to\PYZus{}sql}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rollup\PYZus{}periods}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{engine}\PY{p}{,} \PY{n}{if\PYZus{}exists}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{replace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} check to see tables are loaded}
+        \PY{n}{engine}\PY{o}{.}\PY{n}{table\PYZus{}names}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} ['users', 'emails', 'events', 'rollup\_periods']
+\end{Verbatim}
+            
+\section{With data loaded, on to generating
+labels.}\label{with-data-loaded-on-to-generating-labels.}
+
+\subsection{\texorpdfstring{Section \ref{toc}}{}}\label{back-to-table-of-contents}
+
+ \# Data Preparation - Assign Labels
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} first, I want to get a summary of the event data available}
+        \PY{c+c1}{\PYZsh{} what dates does this data cover, and how many users are we talking about?}
+        \PY{c+c1}{\PYZsh{} }
+        \PY{n}{con} \PY{o}{=} \PY{k+kc}{None}
+        \PY{n}{con} \PY{o}{=} \PY{n}{psycopg2}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{database} \PY{o}{=} \PY{n}{dbname}\PY{p}{,} \PY{n}{user} \PY{o}{=} \PY{n}{username}\PY{p}{,} \PY{n}{host}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{localhost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{password}\PY{o}{=}\PY{n}{pswd}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} query:}
+        \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{SELECT * }
+        \PY{l+s+s2}{FROM events}
+        \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{n}{data\PYZus{}from\PYZus{}sql} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+        \PY{n}{data\PYZus{}from\PYZus{}sql}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}    index  user\_id         occurred\_at  event\_type    event\_name location  \textbackslash{}
+        0      0    10522 2014-05-02 11:02:39  engagement         login    Japan   
+        1      1    10522 2014-05-02 11:02:53  engagement     home\_page    Japan   
+        2      2    10522 2014-05-02 11:03:28  engagement  like\_message    Japan   
+        3      3    10522 2014-05-02 11:04:09  engagement    view\_inbox    Japan   
+        4      4    10522 2014-05-02 11:03:16  engagement    search\_run    Japan   
+        
+                           device  user\_type  
+        0  dell inspiron notebook        3.0  
+        1  dell inspiron notebook        3.0  
+        2  dell inspiron notebook        3.0  
+        3  dell inspiron notebook        3.0  
+        4  dell inspiron notebook        3.0  
+\end{Verbatim}
+            
+It looks like the engagement label in the 'event\_type' column is what I
+need.
+
+First, let's try to replicate the Section \ref{problem}.
+
+Rationale: I want to get the count of \emph{weekly unique users} who
+engaged with the product that week, ***If I can replicate the initial
+finding then I know I'm on the right track.
+
+\subsubsection{In SQL, this should be possible with the DATE\_TRUNC
+function and a WHERE
+clause.}\label{in-sql-this-should-be-possible-with-the-date_trunc-function-and-a-where-clause.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT COUNT(DISTINCT(user\PYZus{}id)) AS weekly\PYZus{}users, }
+         \PY{l+s+s2}{        DATE\PYZus{}TRUNC(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{week}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{, occurred\PYZus{}at) AS week}
+         \PY{l+s+s2}{ FROM events}
+         \PY{l+s+s2}{ WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{ GROUP BY 2}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{data\PYZus{}from\PYZus{}sql} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         \PY{n}{data\PYZus{}from\PYZus{}sql}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}    weekly\_users       week
+         0           701 2014-04-28
+         1          1054 2014-05-05
+         2          1094 2014-05-12
+         3          1147 2014-05-19
+         4          1113 2014-05-26
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} That seems right, plot it to confirm.}
+         
+         \PY{c+c1}{\PYZsh{} load in viz tools}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         
+         \PY{c+c1}{\PYZsh{} set conditions for plot}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{context} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poster}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{style} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{week}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weekly\PYZus{}users}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{data\PYZus{}from\PYZus{}sql}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} (array([735352., 735354., 735368., 735382., 735385., 735399., 735413.,
+                 735415., 735429., 735443., 735446., 735460., 735474.]),
+          <a list of 13 Text xticklabel objects>)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Jim_Arnold_Data_Challenge_2_files/Jim_Arnold_Data_Challenge_2_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+OK, managed to reproduce the plot. Now I know where that data came from.
+
+The dates should be formatted, but worry about pretty later.
+
+Now, I'd like to drill down on the specific time range where users
+dropped off.
+
+\subsection{It looks like the peak weekly users in July, which then
+drops
+off.}\label{it-looks-like-the-peak-weekly-users-in-july-which-then-drops-off.}
+
+\section{Given that, I can aggregate to 'monthly active users' instead
+of 'weekly active
+users'}\label{given-that-i-can-aggregate-to-monthly-active-users-instead-of-weekly-active-users}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} query monthly active users}
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT COUNT(DISTINCT(user\PYZus{}id)) AS monthly\PYZus{}users, }
+         \PY{l+s+s2}{        EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{ FROM events}
+         \PY{l+s+s2}{ WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{ GROUP BY 2}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{data\PYZus{}from\PYZus{}sql} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{monthly\PYZus{}users}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{data\PYZus{}from\PYZus{}sql}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} (array([4.5, 5. , 5.5, 6. , 6.5, 7. , 7.5, 8. , 8.5]),
+          <a list of 9 Text xticklabel objects>)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Jim_Arnold_Data_Challenge_2_files/Jim_Arnold_Data_Challenge_2_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} let\PYZsq{}s see the monthly user counts}
+         \PY{n}{data\PYZus{}from\PYZus{}sql}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}    monthly\_users  month
+         0           2361    5.0
+         1           2605    6.0
+         2           3058    7.0
+         3           2795    8.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} let\PYZsq{}s get the official drop off count for the boss.}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{active monthly user change between July and August 2014:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{2795} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3058}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+active monthly user change between July and August 2014: -263
+
+    \end{Verbatim}
+
+\section{From the monthly summary I see 263 less users engaged in August
+compared to
+July.}\label{from-the-monthly-summary-i-see-263-less-users-engaged-in-august-compared-to-july.}
+
+I'd like to label the users that stopped engaging between July and
+August. \#\#\#\# This can be done using a SQL CASE statement.
+
+Specifically, I want label user\_id's that were active in July, BUT NOT
+active in August. Those will be my 'stopped' group. For comparison, I'll
+label the user\_id's that were active in July, AND active in August.
+Those will be my 'engaged' group.
+
+Then, I can do some comparisons to see what's distinct about the stopped
+group vs the engaged users.
+
+\section{\texorpdfstring{To see how I built the following
+sub-sub-subquery, see the
+Section \ref{appendix}}{To see how I built the following sub-sub-subquery, see the }}\label{to-see-how-i-built-the-following-sub-sub-subquery-see-the-appendix}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Perform a single SQL query to label my \PYZsq{}stopped\PYZsq{} and \PYZsq{}engaged groups\PYZsq{}}
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{    CASE WHEN jul \PYZgt{} 0 AND aug IS NOT NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engaged}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{         WHEN jul \PYZgt{} 0 AND aug IS NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{stopped}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{         ELSE NULL END AS target\PYZus{}group}
+         \PY{l+s+s2}{FROM (}
+         \PY{l+s+s2}{    SELECT user\PYZus{}id,}
+         \PY{l+s+s2}{            SUM(CASE WHEN month = 5.0 THEN monthly\PYZus{}events ELSE NULL END) AS may,}
+         \PY{l+s+s2}{            SUM(CASE WHEN month = 6.0 THEN monthly\PYZus{}events ELSE NULL END) AS jun,}
+         \PY{l+s+s2}{            SUM(CASE WHEN month = 7.0 THEN monthly\PYZus{}events ELSE NULL END) AS jul,}
+         \PY{l+s+s2}{            SUM(CASE WHEN month = 8.0 THEN monthly\PYZus{}events ELSE NULL END) AS aug}
+         \PY{l+s+s2}{     FROM(}
+         \PY{l+s+s2}{            SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{                    COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{                    EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{             FROM events}
+         \PY{l+s+s2}{             WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             GROUP BY 1, 3}
+         \PY{l+s+s2}{             ) sub}
+         \PY{l+s+s2}{     GROUP BY 1}
+         \PY{l+s+s2}{     ) monthly\PYZus{}engagement}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{user\PYZus{}labels} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         \PY{n}{user\PYZus{}labels}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}    user\_id target\_group
+         0        4      stopped
+         1        8      stopped
+         2       11      engaged
+         3       17      engaged
+         4       19      stopped
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} quick pandas groupby to confirm these dates match my previous data (expect 263)}
+         \PY{n}{user\PYZus{}labels}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}               user\_id
+         target\_group         
+         engaged          1401
+         stopped          1657
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{l+m+mi}{1657} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1401}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} 256
+\end{Verbatim}
+            
+That's weird. Maybe I lost a few users along the way? I was expecting
+263 - the earlier unique monthly count via SQL.
+
+\subsection{Maybe there were some new users that signed up along the
+way? That is, they would be engaged only in August, not in July.
+Something to investigate later, for now 256 is still in the ballpark
+based on the initial
+chart.}\label{maybe-there-were-some-new-users-that-signed-up-along-the-way-that-is-they-would-be-engaged-only-in-august-not-in-july.-something-to-investigate-later-for-now-256-is-still-in-the-ballpark-based-on-the-initial-chart.}
+
+\subsection{Let's see if anything differentiates these
+groups.}\label{lets-see-if-anything-differentiates-these-groups.}
+
+\subsection{\texorpdfstring{Section \ref{toc}}{}}\label{back-to-table-of-contents}
+
+ \# User Events - Interactions with Weekly Email Digest
+
+\subsection{First, confirm that this isn't a technical glitch from the
+service.}\label{first-confirm-that-this-isnt-a-technical-glitch-from-the-service.}
+
+Is there any sign of a technial issue? Is the product getting delivered
+as expected? Where in the chain of events are the users not engaging? My
+understanding is that the chain of events should look like:
+
+\subsection{sent\_weekly\_digest -\textgreater{} email\_open
+-\textgreater{}
+clickthrough}\label{sent_weekly_digest---email_open---clickthrough}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} join the labels to the events table, and generate summary of weekly sent emails by group.}
+         
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT labels.target\PYZus{}group, }
+         \PY{l+s+s2}{    DATE\PYZus{}TRUNC(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{week}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{, emails.occurred\PYZus{}at) AS week,}
+         \PY{l+s+s2}{    COUNT(DISTINCT(emails.user\PYZus{}id)) AS sent\PYZus{}weekly\PYZus{}digest}
+         \PY{l+s+s2}{FROM (}
+         \PY{l+s+s2}{    SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{        CASE WHEN jul \PYZgt{} 0 AND aug IS NOT NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engaged}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{             WHEN jul \PYZgt{} 0 AND aug IS NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{stopped}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             ELSE NULL END AS target\PYZus{}group}
+         \PY{l+s+s2}{    FROM (}
+         \PY{l+s+s2}{        SELECT user\PYZus{}id,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 5.0 THEN monthly\PYZus{}events ELSE NULL END) AS may,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 6.0 THEN monthly\PYZus{}events ELSE NULL END) AS jun,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 7.0 THEN monthly\PYZus{}events ELSE NULL END) AS jul,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 8.0 THEN monthly\PYZus{}events ELSE NULL END) AS aug}
+         \PY{l+s+s2}{         FROM(}
+         \PY{l+s+s2}{            SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{                    COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{                    EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{             FROM events}
+         \PY{l+s+s2}{             WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             GROUP BY 1, 3}
+         \PY{l+s+s2}{             ) sub}
+         \PY{l+s+s2}{         GROUP BY 1}
+         \PY{l+s+s2}{         ) sub\PYZus{}sub}
+         \PY{l+s+s2}{) labels}
+         \PY{l+s+s2}{LEFT JOIN emails}
+         \PY{l+s+s2}{ ON labels.user\PYZus{}id = emails.user\PYZus{}id}
+         \PY{l+s+s2}{ WHERE target\PYZus{}group IS NOT NULL }
+         \PY{l+s+s2}{ AND action = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{sent\PYZus{}weekly\PYZus{}digest}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{ AND occurred\PYZus{}at \PYZgt{} }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{2014\PYZhy{}06\PYZhy{}01}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{ GROUP BY 1,2}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{sent} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} plot}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{week}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sent\PYZus{}weekly\PYZus{}digest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{sent}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <matplotlib.legend.Legend at 0x7f8fb6bd7160>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Jim_Arnold_Data_Challenge_2_files/Jim_Arnold_Data_Challenge_2_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+This chart is a little confusing- it looks like the 'engaged' got more
+emails than the 'stopped'. That might be true, but that's because the
+engaged group, as I've defined it, acquired additional unique users
+through August. That agrees with differences I saw in monthly unique
+users vs July AND August unique users.
+
+\section{The take away here is that the 'stopped' group didn't see a
+drop in email
+deliveries.}\label{the-take-away-here-is-that-the-stopped-group-didnt-see-a-drop-in-email-deliveries.}
+
+There isn't any indication to suggest this is a technical malfunction on
+the delivery side.
+
+Let's see if both groups actually opened their emails.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} join the labels to the events table, and generate summary of weekly open emails by group.}
+         
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT labels.target\PYZus{}group, }
+         \PY{l+s+s2}{    DATE\PYZus{}TRUNC(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{week}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{, emails.occurred\PYZus{}at) AS week,}
+         \PY{l+s+s2}{    COUNT(DISTINCT(emails.user\PYZus{}id)) AS open\PYZus{}weekly\PYZus{}digest}
+         \PY{l+s+s2}{FROM (}
+         \PY{l+s+s2}{    SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{        CASE WHEN jul \PYZgt{} 0 AND aug IS NOT NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engaged}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{             WHEN jul \PYZgt{} 0 AND aug IS NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{stopped}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             ELSE NULL END AS target\PYZus{}group}
+         \PY{l+s+s2}{    FROM (}
+         \PY{l+s+s2}{        SELECT user\PYZus{}id,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 5.0 THEN monthly\PYZus{}events ELSE NULL END) AS may,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 6.0 THEN monthly\PYZus{}events ELSE NULL END) AS jun,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 7.0 THEN monthly\PYZus{}events ELSE NULL END) AS jul,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 8.0 THEN monthly\PYZus{}events ELSE NULL END) AS aug}
+         \PY{l+s+s2}{         FROM(}
+         \PY{l+s+s2}{            SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{                    COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{                    EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{             FROM events}
+         \PY{l+s+s2}{             WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             GROUP BY 1, 3}
+         \PY{l+s+s2}{             ) sub}
+         \PY{l+s+s2}{         GROUP BY 1}
+         \PY{l+s+s2}{         ) sub\PYZus{}sub}
+         \PY{l+s+s2}{) labels}
+         \PY{l+s+s2}{LEFT JOIN emails}
+         \PY{l+s+s2}{ ON labels.user\PYZus{}id = emails.user\PYZus{}id}
+         \PY{l+s+s2}{ WHERE target\PYZus{}group IS NOT NULL }
+         \PY{l+s+s2}{ AND action = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{email\PYZus{}open}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{ AND occurred\PYZus{}at \PYZgt{} }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{2014\PYZhy{}06\PYZhy{}01}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{ GROUP BY 1,2}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{device} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{week}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{open\PYZus{}weekly\PYZus{}digest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{device}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} <matplotlib.legend.Legend at 0x7f8fb6c59320>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Jim_Arnold_Data_Challenge_2_files/Jim_Arnold_Data_Challenge_2_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\chapter{Well, this looks
+interesting.}\label{well-this-looks-interesting.}
+
+\subsection{it definitely matches the pattern I see in the initial
+problem. I think this is
+it.}\label{it-definitely-matches-the-pattern-i-see-in-the-initial-problem.-i-think-this-is-it.}
+
+The 'stopped' group isn't opening the weekly digest. I can look at the
+click through rate, but it will probably look like this.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} join the labels to the events table, and generate summary of weekly clickthroughs by group.}
+         
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT labels.target\PYZus{}group, }
+         \PY{l+s+s2}{    DATE\PYZus{}TRUNC(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{week}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{, emails.occurred\PYZus{}at) AS week,}
+         \PY{l+s+s2}{    COUNT(DISTINCT(emails.user\PYZus{}id)) AS email\PYZus{}clickthrough}
+         \PY{l+s+s2}{FROM (}
+         \PY{l+s+s2}{    SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{        CASE WHEN jul \PYZgt{} 0 AND aug IS NOT NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engaged}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{             WHEN jul \PYZgt{} 0 AND aug IS NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{stopped}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             ELSE NULL END AS target\PYZus{}group}
+         \PY{l+s+s2}{    FROM (}
+         \PY{l+s+s2}{        SELECT user\PYZus{}id,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 5.0 THEN monthly\PYZus{}events ELSE NULL END) AS may,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 6.0 THEN monthly\PYZus{}events ELSE NULL END) AS jun,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 7.0 THEN monthly\PYZus{}events ELSE NULL END) AS jul,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 8.0 THEN monthly\PYZus{}events ELSE NULL END) AS aug}
+         \PY{l+s+s2}{         FROM(}
+         \PY{l+s+s2}{            SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{                    COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{                    EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{             FROM events}
+         \PY{l+s+s2}{             WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             GROUP BY 1, 3}
+         \PY{l+s+s2}{             ) sub}
+         \PY{l+s+s2}{         GROUP BY 1}
+         \PY{l+s+s2}{         ) sub\PYZus{}sub}
+         \PY{l+s+s2}{) labels}
+         \PY{l+s+s2}{LEFT JOIN emails}
+         \PY{l+s+s2}{ ON labels.user\PYZus{}id = emails.user\PYZus{}id}
+         \PY{l+s+s2}{ WHERE target\PYZus{}group IS NOT NULL }
+         \PY{l+s+s2}{ AND action = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{email\PYZus{}clickthrough}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{ AND occurred\PYZus{}at \PYZgt{} }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{2014\PYZhy{}06\PYZhy{}01}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{ GROUP BY 1,2}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{device} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{week}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{email\PYZus{}clickthrough}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{device}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} <matplotlib.legend.Legend at 0x7f8fb59c0160>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Jim_Arnold_Data_Challenge_2_files/Jim_Arnold_Data_Challenge_2_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\chapter{Clickthrough}\label{clickthrough}
+
+I think this is more of a product of how I picked my groups rather than
+being causal. Still, that's nice to see my SQL commands worked as
+expected.
+
+I think the story might go like this:
+
+\textbf{\emph{Users in the 'stopped' group are still receiving emails as
+expected, but they are not opening them compared to the 'engaged'
+group.}}
+
+\textbf{\emph{And if they do open them they aren't clicking through to
+the platform.}}
+
+\chapter{This answers WHAT is happening, but not the WHO or
+WHY.}\label{this-answers-what-is-happening-but-not-the-who-or-why.}
+
+\section{Who are they, where are they, and what are they using to
+engage?}\label{who-are-they-where-are-they-and-what-are-they-using-to-engage}
+
+I'll answer those next.
+
+\subsection{\texorpdfstring{Section \ref{toc}}{}}\label{back-to-table-of-contents}
+
+ \# User Profile - Engagement comparison by Location, Device, and
+Company
+
+I have an idea of what's happening, but I don't know why. To answer
+this, I'll need to explore some of the other user-related features
+available.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} first, let\PYZsq{}s keep it contained to the events table.}
+         \PY{c+c1}{\PYZsh{} I\PYZsq{}m going to self\PYZhy{}join with the labels I made, generate a df and do some EDA.}
+         
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT labels.*, events.*}
+         \PY{l+s+s2}{FROM (}
+         \PY{l+s+s2}{    SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{        CASE WHEN jul \PYZgt{} 0 AND aug IS NOT NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engaged}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{             WHEN jul \PYZgt{} 0 AND aug IS NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{stopped}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             ELSE NULL END AS target\PYZus{}group}
+         \PY{l+s+s2}{    FROM (}
+         \PY{l+s+s2}{        SELECT user\PYZus{}id,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 5.0 THEN monthly\PYZus{}events ELSE NULL END) AS may,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 6.0 THEN monthly\PYZus{}events ELSE NULL END) AS jun,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 7.0 THEN monthly\PYZus{}events ELSE NULL END) AS jul,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 8.0 THEN monthly\PYZus{}events ELSE NULL END) AS aug}
+         \PY{l+s+s2}{         FROM(}
+         \PY{l+s+s2}{            SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{                    COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{                    EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{             FROM events}
+         \PY{l+s+s2}{             WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             GROUP BY 1, 3}
+         \PY{l+s+s2}{             ) sub}
+         \PY{l+s+s2}{         GROUP BY 1}
+         \PY{l+s+s2}{         ) sub\PYZus{}sub}
+         \PY{l+s+s2}{) labels}
+         \PY{l+s+s2}{LEFT JOIN events}
+         \PY{l+s+s2}{ ON labels.user\PYZus{}id = events.user\PYZus{}id}
+         \PY{l+s+s2}{ WHERE target\PYZus{}group IS NOT NULL}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{target\PYZus{}groups} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         \PY{n}{target\PYZus{}groups}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}    user\_id target\_group  index  user\_id         occurred\_at  event\_type  \textbackslash{}
+         0    10612      engaged      6    10612 2014-05-01 09:59:46  engagement   
+         1    10612      engaged      7    10612 2014-05-01 10:00:18  engagement   
+         2    10612      engaged      8    10612 2014-05-01 10:00:53  engagement   
+         3    10612      engaged      9    10612 2014-05-01 10:01:24  engagement   
+         4    10612      engaged     10    10612 2014-05-01 10:01:52  engagement   
+         
+              event\_name     location    device  user\_type  
+         0         login  Netherlands  iphone 5        1.0  
+         1  like\_message  Netherlands  iphone 5        1.0  
+         2  send\_message  Netherlands  iphone 5        1.0  
+         3     home\_page  Netherlands  iphone 5        1.0  
+         4  like\_message  Netherlands  iphone 5        1.0  
+\end{Verbatim}
+            
+Awesome, from here I can test my hypotheses 2 and 3 to get an idea of
+what distinguishes the users who stopped.
+
+My initial thoughts are to explore location and device.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Check engagement by user location (country)}
+         
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT labels.target\PYZus{}group, COUNT(DISTINCT events.user\PYZus{}id), events.location}
+         \PY{l+s+s2}{FROM (}
+         \PY{l+s+s2}{    SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{        CASE WHEN jul \PYZgt{} 0 AND aug IS NOT NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engaged}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{             WHEN jul \PYZgt{} 0 AND aug IS NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{stopped}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             ELSE NULL END AS target\PYZus{}group}
+         \PY{l+s+s2}{    FROM (}
+         \PY{l+s+s2}{        SELECT user\PYZus{}id,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 5.0 THEN monthly\PYZus{}events ELSE NULL END) AS may,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 6.0 THEN monthly\PYZus{}events ELSE NULL END) AS jun,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 7.0 THEN monthly\PYZus{}events ELSE NULL END) AS jul,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 8.0 THEN monthly\PYZus{}events ELSE NULL END) AS aug}
+         \PY{l+s+s2}{         FROM(}
+         \PY{l+s+s2}{            SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{                    COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{                    EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{             FROM events}
+         \PY{l+s+s2}{             WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             GROUP BY 1, 3}
+         \PY{l+s+s2}{             ) sub}
+         \PY{l+s+s2}{         GROUP BY 1}
+         \PY{l+s+s2}{         ) sub\PYZus{}sub}
+         \PY{l+s+s2}{) labels}
+         \PY{l+s+s2}{LEFT JOIN events}
+         \PY{l+s+s2}{ ON labels.user\PYZus{}id = events.user\PYZus{}id}
+         \PY{l+s+s2}{ WHERE target\PYZus{}group IS NOT NULL}
+         \PY{l+s+s2}{ GROUP BY labels.target\PYZus{}group, events.location}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{loc} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot it}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{location}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{target\PYZus{}group}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{loc}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unique users}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} [Text(0.5, 0, 'unique users')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Jim_Arnold_Data_Challenge_2_files/Jim_Arnold_Data_Challenge_2_43_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+To me, it looks like a lot of people in the northern hemisphere stopped
+engaging.
+
+\chapter{US, Canada, France, Germany, Mexico stand out, but there's
+others
+too.}\label{us-canada-france-germany-mexico-stand-out-but-theres-others-too.}
+
+It would be summer time in those countries. Maybe they went on vacation?
+
+Let's check the device breakdown. Maybe it's a technical issue (app
+update, website crash, etc).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Check engagement by device}
+         
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT labels.target\PYZus{}group, COUNT(DISTINCT events.user\PYZus{}id), events.device}
+         \PY{l+s+s2}{FROM (}
+         \PY{l+s+s2}{    SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{        CASE WHEN jul \PYZgt{} 0 AND aug IS NOT NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engaged}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{             WHEN jul \PYZgt{} 0 AND aug IS NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{stopped}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             ELSE NULL END AS target\PYZus{}group}
+         \PY{l+s+s2}{    FROM (}
+         \PY{l+s+s2}{        SELECT user\PYZus{}id,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 5.0 THEN monthly\PYZus{}events ELSE NULL END) AS may,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 6.0 THEN monthly\PYZus{}events ELSE NULL END) AS jun,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 7.0 THEN monthly\PYZus{}events ELSE NULL END) AS jul,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 8.0 THEN monthly\PYZus{}events ELSE NULL END) AS aug}
+         \PY{l+s+s2}{         FROM(}
+         \PY{l+s+s2}{            SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{                    COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{                    EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{             FROM events}
+         \PY{l+s+s2}{             WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             GROUP BY 1, 3}
+         \PY{l+s+s2}{             ) sub}
+         \PY{l+s+s2}{         GROUP BY 1}
+         \PY{l+s+s2}{         ) sub\PYZus{}sub}
+         \PY{l+s+s2}{) labels}
+         \PY{l+s+s2}{LEFT JOIN events}
+         \PY{l+s+s2}{ ON labels.user\PYZus{}id = events.user\PYZus{}id}
+         \PY{l+s+s2}{ WHERE target\PYZus{}group IS NOT NULL}
+         \PY{l+s+s2}{ GROUP BY labels.target\PYZus{}group, events.device}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{device} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot it}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{device}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{target\PYZus{}group}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{device}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{users}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} [Text(0.5, 0, 'users')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Jim_Arnold_Data_Challenge_2_files/Jim_Arnold_Data_Challenge_2_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\section{I don't see a large difference by device between stopped and
+engaged
+users.}\label{i-dont-see-a-large-difference-by-device-between-stopped-and-engaged-users.}
+
+\subsection{This suggests to me there's not a technical issue with the
+platforms (website, iphone app, android app,
+etc).}\label{this-suggests-to-me-theres-not-a-technical-issue-with-the-platforms-website-iphone-app-android-app-etc.}
+
+In general, there seems to a large number of macbook pro, macbook air,
+and lenovo thinkpad users who stopped engaging. There's also a drop in
+iphone and galaxy s4 users.
+
+Those are more modern devices... I want to test whether this drop in
+engagement is specific to a single or group of companies.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Check engagement by company}
+         
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT labels.target\PYZus{}group, users.company\PYZus{}id, COUNT(DISTINCT(users.user\PYZus{}id))}
+         \PY{l+s+s2}{FROM (}
+         \PY{l+s+s2}{    SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{        CASE WHEN jul \PYZgt{} 0 AND aug IS NOT NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engaged}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{             WHEN jul \PYZgt{} 0 AND aug IS NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{stopped}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             ELSE NULL END AS target\PYZus{}group}
+         \PY{l+s+s2}{    FROM (}
+         \PY{l+s+s2}{        SELECT user\PYZus{}id,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 5.0 THEN monthly\PYZus{}events ELSE NULL END) AS may,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 6.0 THEN monthly\PYZus{}events ELSE NULL END) AS jun,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 7.0 THEN monthly\PYZus{}events ELSE NULL END) AS jul,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 8.0 THEN monthly\PYZus{}events ELSE NULL END) AS aug}
+         \PY{l+s+s2}{         FROM(}
+         \PY{l+s+s2}{            SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{                    COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{                    EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{             FROM events}
+         \PY{l+s+s2}{             WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             GROUP BY 1, 3}
+         \PY{l+s+s2}{             ) sub}
+         \PY{l+s+s2}{         GROUP BY 1}
+         \PY{l+s+s2}{         ) sub\PYZus{}sub}
+         \PY{l+s+s2}{) labels}
+         \PY{l+s+s2}{LEFT JOIN users}
+         \PY{l+s+s2}{ ON labels.user\PYZus{}id = users.user\PYZus{}id}
+         \PY{l+s+s2}{ WHERE target\PYZus{}group IS NOT NULL}
+         \PY{l+s+s2}{ GROUP BY 1,2}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{company} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         \PY{n}{company}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}   target\_group  company\_id  count
+         0      engaged           1     78
+         1      engaged           2     37
+         2      engaged           3     25
+         3      engaged           4     21
+         4      engaged           5     14
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} I tried plotting this and my computer almost crashed. Let\PYZsq{}s see how many companies we have}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unique companies:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{company}\PY{o}{.}\PY{n}{company\PYZus{}id}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+unique companies: 2301
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} OK, I\PYZsq{}m going to take a different approach. I\PYZsq{}m going to pivot the users/co by target\PYZus{}group.}
+         \PY{c+c1}{\PYZsh{} then I\PYZsq{}m going to sum to get the total, and then calc the \PYZpc{} stopped per company.}
+         \PY{c+c1}{\PYZsh{} I want to know if this is specific to a single company, or distributed.}
+         
+         \PY{n}{company} \PY{o}{=} \PY{n}{company}\PY{o}{.}\PY{n}{pivot}\PY{p}{(}\PY{n}{index} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{company\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{company} \PY{o}{=} \PY{n}{company}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{company}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{company}\PY{o}{.}\PY{n}{engaged} \PY{o}{+} \PY{n}{company}\PY{o}{.}\PY{n}{stopped}
+         \PY{n}{company}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pct\PYZus{}stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{100}\PY{o}{*}\PY{n}{company}\PY{o}{.}\PY{n}{stopped} \PY{o}{/} \PY{n}{company}\PY{o}{.}\PY{n}{total}
+         \PY{n}{company}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pct\PYZus{}stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{company}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} target\_group  engaged  stopped  total  pct\_stopped
+         11                2.0      9.0   11.0    81.818182
+         30                1.0      4.0    5.0    80.000000
+         38                1.0      4.0    5.0    80.000000
+         37                1.0      3.0    4.0    75.000000
+         35                1.0      3.0    4.0    75.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} let\PYZsq{}s look at the stats on the per company \PYZpc{} stopped.}
+         \PY{n}{company}\PY{o}{.}\PY{n}{pct\PYZus{}stopped}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} count    82.000000
+         mean     52.218206
+         std      13.896200
+         min      25.000000
+         25\%      50.000000
+         50\%      50.000000
+         75\%      60.833333
+         max      81.818182
+         Name: pct\_stopped, dtype: float64
+\end{Verbatim}
+            
+\subsection{Summary stats indicate that within the companies that saw
+some loss of engagement, the lowest is 25\%, and the highest is
+82\%.}\label{summary-stats-indicate-that-within-the-companies-that-saw-some-loss-of-engagement-the-lowest-is-25-and-the-highest-is-82.}
+
+\subsection{My take home from this is the issue is not specific to a
+single company / group of
+companies.}\label{my-take-home-from-this-is-the-issue-is-not-specific-to-a-single-company-group-of-companies.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} Check engagement by language}
+         
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT labels.target\PYZus{}group, users.language, COUNT(DISTINCT(users.user\PYZus{}id))}
+         \PY{l+s+s2}{FROM (}
+         \PY{l+s+s2}{    SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{        CASE WHEN jul \PYZgt{} 0 AND aug IS NOT NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engaged}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{             WHEN jul \PYZgt{} 0 AND aug IS NULL THEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{stopped}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             ELSE NULL END AS target\PYZus{}group}
+         \PY{l+s+s2}{    FROM (}
+         \PY{l+s+s2}{        SELECT user\PYZus{}id,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 5.0 THEN monthly\PYZus{}events ELSE NULL END) AS may,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 6.0 THEN monthly\PYZus{}events ELSE NULL END) AS jun,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 7.0 THEN monthly\PYZus{}events ELSE NULL END) AS jul,}
+         \PY{l+s+s2}{                SUM(CASE WHEN month = 8.0 THEN monthly\PYZus{}events ELSE NULL END) AS aug}
+         \PY{l+s+s2}{         FROM(}
+         \PY{l+s+s2}{            SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{                    COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{                    EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{             FROM events}
+         \PY{l+s+s2}{             WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             GROUP BY 1, 3}
+         \PY{l+s+s2}{             ) sub}
+         \PY{l+s+s2}{         GROUP BY 1}
+         \PY{l+s+s2}{         ) sub\PYZus{}sub}
+         \PY{l+s+s2}{) labels}
+         \PY{l+s+s2}{LEFT JOIN users}
+         \PY{l+s+s2}{ ON labels.user\PYZus{}id = users.user\PYZus{}id}
+         \PY{l+s+s2}{ WHERE target\PYZus{}group IS NOT NULL}
+         \PY{l+s+s2}{ GROUP BY 1,2}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{lang} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot it}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{language}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{target\PYZus{}group}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{lang}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{users}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} [Text(0.5, 0, 'users')]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Jim_Arnold_Data_Challenge_2_files/Jim_Arnold_Data_Challenge_2_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+It's predominately English speakers who have stopped engaging, although
+there's also a large proportion of french and spanish, and japanese.
+This aligns with the country data seen earlier.
+
+ \# To summarize: 1) a majority of the 'stopped' users are in northern
+hemisphere countries. 2) the 'stopped' users aren't specific to any
+specific device. 3) the 'stopped' users are receiving the weekly digest,
+but they're not opening it.
+
+\subsection{These users are likely on
+vacation.}\label{these-users-are-likely-on-vacation.}
+
+\chapter{Recommendations:}\label{recommendations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  check historical records to test if this is a seasonal trend.
+\item
+  give heads up to product team that emails aren't being opened. Might
+  be caused by a change in inbox spam filters.
+\end{enumerate}
+
+\subsection{\texorpdfstring{Section \ref{toc}}{}}\label{table-of-contents}
+
+ \# Appendix
+
+I built my big sub-sub-subquery iterately. Here's how:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} first, let\PYZsq{}s get the number of events, per user, per month}
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{        COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{        EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{ FROM events}
+         \PY{l+s+s2}{ WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{ GROUP BY 1, 3}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{data\PYZus{}from\PYZus{}sql} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         \PY{n}{data\PYZus{}from\PYZus{}sql}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:}    user\_id  monthly\_events  month
+         0        4              41    5.0
+         1        4              38    6.0
+         2        4              14    7.0
+         3        8              29    5.0
+         4        8               7    7.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} next, I\PYZsq{}m going to pivot the monthly events to columns doing a sub\PYZhy{}query}
+         \PY{c+c1}{\PYZsh{} there\PYZsq{}s a great example of this in the advanced SQL section on MODE analytics.}
+         
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT user\PYZus{}id,}
+         \PY{l+s+s2}{        SUM(CASE WHEN month = 5.0 THEN monthly\PYZus{}events ELSE NULL END) AS may,}
+         \PY{l+s+s2}{        SUM(CASE WHEN month = 6.0 THEN monthly\PYZus{}events ELSE NULL END) AS jun,}
+         \PY{l+s+s2}{        SUM(CASE WHEN month = 7.0 THEN monthly\PYZus{}events ELSE NULL END) AS jul,}
+         \PY{l+s+s2}{        SUM(CASE WHEN month = 8.0 THEN monthly\PYZus{}events ELSE NULL END) AS aug}
+         \PY{l+s+s2}{ FROM(}
+         \PY{l+s+s2}{        SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{                COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{                EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{         FROM events}
+         \PY{l+s+s2}{         WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{         GROUP BY 1, 3}
+         \PY{l+s+s2}{         ) sub}
+         \PY{l+s+s2}{ GROUP BY 1}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{data\PYZus{}from\PYZus{}sql} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         \PY{n}{data\PYZus{}from\PYZus{}sql}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:}    user\_id   may   jun   jul   aug
+         0        4  41.0  38.0  14.0   NaN
+         1        8  29.0   NaN   7.0   NaN
+         2       11   NaN  64.0  37.0  25.0
+         3       17   NaN   NaN  23.0  32.0
+         4       19   NaN  56.0  15.0   NaN
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} OK, I can use this table to create the labels for the \PYZsq{}stopped\PYZsq{} and \PYZsq{}engaged\PYZsq{} groups, }
+         \PY{c+c1}{\PYZsh{} but first make sure the sub\PYZhy{}subquery works}
+         
+         \PY{n}{sql\PYZus{}query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT *}
+         \PY{l+s+s2}{FROM (}
+         \PY{l+s+s2}{    SELECT user\PYZus{}id,}
+         \PY{l+s+s2}{            SUM(CASE WHEN month = 5.0 THEN monthly\PYZus{}events ELSE NULL END) AS may,}
+         \PY{l+s+s2}{            SUM(CASE WHEN month = 6.0 THEN monthly\PYZus{}events ELSE NULL END) AS jun,}
+         \PY{l+s+s2}{            SUM(CASE WHEN month = 7.0 THEN monthly\PYZus{}events ELSE NULL END) AS jul,}
+         \PY{l+s+s2}{            SUM(CASE WHEN month = 8.0 THEN monthly\PYZus{}events ELSE NULL END) AS aug}
+         \PY{l+s+s2}{     FROM(}
+         \PY{l+s+s2}{            SELECT user\PYZus{}id, }
+         \PY{l+s+s2}{                    COUNT(event\PYZus{}name) AS monthly\PYZus{}events,}
+         \PY{l+s+s2}{                    EXTRACT(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{  FROM occurred\PYZus{}at) AS month}
+         \PY{l+s+s2}{             FROM events}
+         \PY{l+s+s2}{             WHERE event\PYZus{}type = }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{engagement}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{             GROUP BY 1, 3}
+         \PY{l+s+s2}{             ) sub}
+         \PY{l+s+s2}{     GROUP BY 1}
+         \PY{l+s+s2}{     ) monthly\PYZus{}engagement}
+         \PY{l+s+s2}{ WHERE jul \PYZgt{} 0 AND aug IS NULL}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{stopped} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{sql\PYZus{}query}\PY{p}{,}\PY{n}{con}\PY{p}{)}
+         \PY{n}{stopped}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}    user\_id   may   jun   jul   aug
+         0        4  41.0  38.0  14.0  None
+         1        8  29.0   NaN   7.0  None
+         2       19   NaN  56.0  15.0  None
+         3      171   2.0   NaN  10.0  None
+         4      172  65.0  32.0  21.0  None
+\end{Verbatim}
+            
+\chapter{last steps is to do the sub-sub-subquery, which is done in
+the}\label{last-steps-is-to-do-the-sub-sub-subquery-which-is-done-in-the}
+
+\chapter{\texorpdfstring{Section \ref{events} and Section \ref{profile}
+sections}{ and  sections}}\label{user-events-and-user-profiles-sections}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

@@ -1,0 +1,52 @@
+\BOOKMARK [0][-]{chapter.1}{Executive summary:}{}% 1
+\BOOKMARK [1][-]{subsection.1.0.1}{It appears that while emails are being delivered as expected, many users in North America and Europe are not engaging with the product. Given this anomaly is occuring at the end of July / early August, it may be possible we are seeing a seasonal effect, i.e. summer vacation.}{chapter.1}% 2
+\BOOKMARK [0][-]{chapter.2}{Recommendations:}{}% 3
+\BOOKMARK [1][-]{subsection.2.0.1}{}{chapter.2}% 4
+\BOOKMARK [2][-]{subsection.2.0.2}{}{subsection.2.0.1}% 5
+\BOOKMARK [2][-]{subsection.2.0.3}{}{subsection.2.0.1}% 6
+\BOOKMARK [2][-]{subsection.2.0.4}{}{subsection.2.0.1}% 7
+\BOOKMARK [2][-]{subsection.2.0.5}{}{subsection.2.0.1}% 8
+\BOOKMARK [2][-]{subsection.2.0.6}{}{subsection.2.0.1}% 9
+\BOOKMARK [2][-]{subsection.2.0.7}{}{subsection.2.0.1}% 10
+\BOOKMARK [2][-]{subsection.2.0.8}{}{subsection.2.0.1}% 11
+\BOOKMARK [2][-]{subsection.2.0.9}{The head of product says ``Can you look into this and get me a summary by this afternoon?''}{subsection.2.0.1}% 12
+\BOOKMARK [2][-]{subsection.2.0.10}{"Sure thing!" I say.}{subsection.2.0.1}% 13
+\BOOKMARK [0][-]{chapter.3}{But where to start?}{}% 14
+\BOOKMARK [0][-]{chapter.4}{Hypotheses}{}% 15
+\BOOKMARK [1][-]{subsection.4.0.1}{1\) Users were prompted to signup, then stopped using it. - an adoption/ compliance issue.}{chapter.4}% 16
+\BOOKMARK [2][-]{subsection.4.0.2}{2\) Users changed how they interact with the platform - which could be specific to a company, language, location, or device.}{subsection.4.0.1}% 17
+\BOOKMARK [2][-]{subsection.4.0.3}{3\) Similar to 2, there could be an underlying technical issue, perhaps people can't connect and/ or interact with the product.}{subsection.4.0.1}% 18
+\BOOKMARK [0][-]{chapter.5}{Approach}{}% 19
+\BOOKMARK [1][-]{subsection.5.0.1}{To approach this question, I think it's important to explore some details. Specifically:}{chapter.5}% 20
+\BOOKMARK [1][-]{section.5.1}{WHO stopped using the product? If time remaining, address WHY.}{chapter.5}% 21
+\BOOKMARK [2][-]{subsection.5.1.1}{}{section.5.1}% 22
+\BOOKMARK [2][-]{subsection.5.1.2}{The 'event\137type', and 'occurred\137at' datetime features are going to be critical for answering my question.}{section.5.1}% 23
+\BOOKMARK [2][-]{subsection.5.1.3}{Import the properly dtyped data to my local db}{section.5.1}% 24
+\BOOKMARK [1][-]{section.5.2}{With data loaded, on to generating labels.}{chapter.5}% 25
+\BOOKMARK [2][-]{subsection.5.2.1}{}{section.5.2}% 26
+\BOOKMARK [2][-]{subsection.5.2.2}{It looks like the peak weekly users in July, which then drops off.}{section.5.2}% 27
+\BOOKMARK [1][-]{section.5.3}{Given that, I can aggregate to 'monthly active users' instead of 'weekly active users'}{chapter.5}% 28
+\BOOKMARK [1][-]{section.5.4}{From the monthly summary I see 263 less users engaged in August compared to July.}{chapter.5}% 29
+\BOOKMARK [1][-]{section.5.5}{To see how I built the following sub-sub-subquery, see the }{chapter.5}% 30
+\BOOKMARK [2][-]{subsection.5.5.1}{Maybe there were some new users that signed up along the way? That is, they would be engaged only in August, not in July. Something to investigate later, for now 256 is still in the ballpark based on the initial chart.}{section.5.5}% 31
+\BOOKMARK [2][-]{subsection.5.5.2}{Let's see if anything differentiates these groups.}{section.5.5}% 32
+\BOOKMARK [2][-]{subsection.5.5.3}{}{section.5.5}% 33
+\BOOKMARK [2][-]{subsection.5.5.4}{First, confirm that this isn't a technical glitch from the service.}{section.5.5}% 34
+\BOOKMARK [2][-]{subsection.5.5.5}{sent\137weekly\137digest -> email\137open -> clickthrough}{section.5.5}% 35
+\BOOKMARK [1][-]{section.5.6}{The take away here is that the 'stopped' group didn't see a drop in email deliveries.}{chapter.5}% 36
+\BOOKMARK [0][-]{chapter.6}{Well, this looks interesting.}{}% 37
+\BOOKMARK [1][-]{subsection.6.0.1}{it definitely matches the pattern I see in the initial problem. I think this is it.}{chapter.6}% 38
+\BOOKMARK [0][-]{chapter.7}{Clickthrough}{}% 39
+\BOOKMARK [0][-]{chapter.8}{This answers WHAT is happening, but not the WHO or WHY.}{}% 40
+\BOOKMARK [1][-]{section.8.1}{Who are they, where are they, and what are they using to engage?}{chapter.8}% 41
+\BOOKMARK [2][-]{subsection.8.1.1}{}{section.8.1}% 42
+\BOOKMARK [0][-]{chapter.9}{US, Canada, France, Germany, Mexico stand out, but there's others too.}{}% 43
+\BOOKMARK [1][-]{section.9.1}{I don't see a large difference by device between stopped and engaged users.}{chapter.9}% 44
+\BOOKMARK [2][-]{subsection.9.1.1}{This suggests to me there's not a technical issue with the platforms \(website, iphone app, android app, etc\).}{section.9.1}% 45
+\BOOKMARK [2][-]{subsection.9.1.2}{Summary stats indicate that within the companies that saw some loss of engagement, the lowest is 25\045, and the highest is 82\045.}{section.9.1}% 46
+\BOOKMARK [2][-]{subsection.9.1.3}{My take home from this is the issue is not specific to a single company / group of companies.}{section.9.1}% 47
+\BOOKMARK [2][-]{subsection.9.1.4}{These users are likely on vacation.}{section.9.1}% 48
+\BOOKMARK [0][-]{chapter.10}{Recommendations:}{}% 49
+\BOOKMARK [1][-]{subsection.10.0.1}{}{chapter.10}% 50
+\BOOKMARK [0][-]{chapter.11}{last steps is to do the sub-sub-subquery, which is done in the}{}% 51
+\BOOKMARK [0][-]{chapter.12}{ and sections}{}% 52
